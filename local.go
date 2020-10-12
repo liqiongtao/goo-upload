@@ -1,4 +1,4 @@
-package upload
+package goo_upload
 
 import (
 	"github.com/gin-gonic/gin"

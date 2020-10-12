@@ -3,7 +3,7 @@
 ```
 s := goo.NewServer()
 s.GET("/upload/local", func(c *gin.Context) {
-    filename, _ := upload.Local.Upload(c)
+    filename, _ := goo_upload.Local.Upload(c)
     c.JSON(200, gin.H{"filename": filename})
 })
 s.Run(":18080")
@@ -13,7 +13,7 @@ s.Run(":18080")
 
 ```
 var (
-	conf = upload.OSSConfig{
+	conf = goo_upload.OSSConfig{
 		AccessKeyId:     "",
 		AccessKeySecret: "",
 		Endpoint:        "",
@@ -24,7 +24,7 @@ var (
 
 func main() {
 	body, _ := ioutil.ReadFile("1.txt")
-	url, _ := upload.OSS.Upload("1.txt", body)
+	url, _ := goo_upload.OSS.Upload("1.txt", body)
 	fmt.Println(url)
 }
 ```

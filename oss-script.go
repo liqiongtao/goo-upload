@@ -1,4 +1,4 @@
-package upload
+package goo_upload
 
 import (
 	"bytes"
