@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
-	"github.com/liqiongtao/goo/utils"
+	goo_utils "github.com/liqiongtao/googo.io/goo-utils"
 	"io/ioutil"
 	"os"
 	"path"
@@ -48,7 +48,7 @@ func ossScript(endpoint, accessKeyId, accessKeySecret, bucketName string) {
 		return
 	}
 
-	var md5str = utils.MD5(body)
+	var md5str = goo_utils.MD5(body)
 	filename = fmt.Sprintf("%s/%s/%s%s", md5str[0:2], md5str[2:4], md5str[8:24], path.Ext(filename))
 
 	if err := bucket.PutObject(filename, bytes.NewReader(body)); err != nil {

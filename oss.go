@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
-	"github.com/liqiongtao/goo"
-	"github.com/liqiongtao/goo/utils"
+	goo_log "github.com/liqiongtao/googo.io/goo-log"
+	goo_utils "github.com/liqiongtao/googo.io/goo-utils"
 	"log"
 	"path"
 )
@@ -35,7 +35,7 @@ func NewOSS(config OSSConfig) (*gooOSS, error) {
 
 	client, err := o.getClient()
 	if err != nil {
-		goo.Log.Error(err.Error())
+		goo_log.Error(err.Error())
 		return nil, err
 	}
 
@@ -43,7 +43,7 @@ func NewOSS(config OSSConfig) (*gooOSS, error) {
 
 	bucket, err := o.getBucket()
 	if err != nil {
-		goo.Log.Error(err.Error())
+		goo_log.Error(err.Error())
 		return nil, err
 	}
 
@@ -59,11 +59,11 @@ type gooOSS struct {
 }
 
 func (o *gooOSS) Upload(filename string, body []byte) (string, error) {
-	md5str := utils.MD5(body)
+	md5str := goo_utils.MD5(body)
 	filename = fmt.Sprintf("%s/%s/%s%s", md5str[0:2], md5str[2:4], md5str[8:24], path.Ext(filename))
 
 	if err := o.Bucket.PutObject(filename, bytes.NewReader(body)); err != nil {
-		goo.Log.Error(err.Error())
+		goo_log.Error(err.Error())
 		return "", err
 	}
 

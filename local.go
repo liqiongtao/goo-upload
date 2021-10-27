@@ -1,8 +1,8 @@
 package goo_upload
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/liqiongtao/goo/utils"
+	"github.com/liqiongtao/googo.io/goo"
+	goo_utils "github.com/liqiongtao/googo.io/goo-utils"
 	"io/ioutil"
 	"os"
 	"path"
@@ -29,7 +29,7 @@ func NewLocal(uploadDir string) *gooLocal {
 	}
 }
 
-func (l *gooLocal) Upload(c *gin.Context) (string, error) {
+func (l *gooLocal) Upload(c *goo.Context) (string, error) {
 	file, header, err := c.Request.FormFile("file")
 	if err != nil {
 		return "", err
@@ -40,7 +40,7 @@ func (l *gooLocal) Upload(c *gin.Context) (string, error) {
 		return "", err
 	}
 
-	md5str := utils.MD5(data)
+	md5str := goo_utils.MD5(data)
 	fpath := md5str[0:2] + "/" + md5str[2:4] + "/"
 
 	if err := os.MkdirAll(l.uploadDir+fpath, l.perm); err != nil {
