@@ -13,7 +13,7 @@ require (
 	github.com/hashicorp/go-uuid v1.0.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/liqiongtao/googo.io v0.0.0-20211025093932-1a5a3a5b1f36
+	github.com/liqiongtao/googo.io v0.0.0-20211027073028-88a197b0f735
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mitchellh/mapstructure v1.4.2 // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
