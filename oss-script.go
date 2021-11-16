@@ -27,7 +27,7 @@ var (
 	bucketName      = flag.String("bucket-name", "", "bucket name")
 )
 
-func init() {
+func InitScript() {
 	flag.Parse()
 
 	if *help {
