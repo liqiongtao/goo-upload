@@ -30,7 +30,8 @@ func InitOSS(config OSSConfig) {
 
 func NewOSS(config OSSConfig) (*gooOSS, error) {
 	o := &gooOSS{
-		Config: config,
+		Config:  config,
+		options: []oss.Option{},
 	}
 
 	client, err := o.getClient()
@@ -53,16 +54,27 @@ func NewOSS(config OSSConfig) (*gooOSS, error) {
 }
 
 type gooOSS struct {
-	Config OSSConfig
-	Client *oss.Client
-	Bucket *oss.Bucket
+	Config  OSSConfig
+	Client  *oss.Client
+	Bucket  *oss.Bucket
+	options []oss.Option
+}
+
+func (o *gooOSS) ContentType(value string) *gooOSS {
+	o.options = append(o.options, oss.ContentType(value))
+	return o
+}
+
+func (o *gooOSS) Options(opts ...oss.Option) *gooOSS {
+	o.options = append(o.options, opts...)
+	return o
 }
 
 func (o *gooOSS) Upload(filename string, body []byte) (string, error) {
 	md5str := goo_utils.MD5(body)
 	filename = fmt.Sprintf("%s/%s/%s%s", md5str[0:2], md5str[2:4], md5str[8:24], path.Ext(filename))
 
-	if err := o.Bucket.PutObject(filename, bytes.NewReader(body)); err != nil {
+	if err := o.Bucket.PutObject(filename, bytes.NewReader(body), o.options...); err != nil {
 		goo_log.Error(err.Error())
 		return "", err
 	}
